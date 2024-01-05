@@ -3,6 +3,7 @@
   --grey: hsl(0, 0%, 75%);
   --blue: hsl(240, 45%, 15%);
   --lightblue: hsl(240, 54%, 49%);
+  --black: hsl(240, 86%, 6%);
 }
 
 html {
@@ -29,7 +30,7 @@ body {
   display: grid;
   border-radius: 10px;
   background: var(--white);
-  box-shadow: 5px 5px 20px var(--blue), 2px 2px 10px var(--lightblue);
+  box-shadow: 3px 3px 5px var(--black), inset -1px -1px 2px var(--lightblue);
 }
 
 .calculator__display {
