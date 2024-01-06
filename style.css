@@ -25,7 +25,7 @@ body {
   height: 100vh;
 }
 
-.calculator {
+.wrapper {
   width: 13rem;
   display: grid;
   border-radius: 10px;
