@@ -40,12 +40,13 @@ body {
   padding: 0.5rem;
   text-align: right;
   font-size: calc(1rem * 1.5);
-}
 
-.calculator__display-top {
-  font-size: 0.65rem;
-  color: var(--grey);
-  padding-right: 0.25em;
+  .display-history {
+    font-size: 0.65rem;
+    color: var(--grey);
+    padding-right: 0.25em;
+    height: 1rem;
+  }
 }
 
 .calculator__keys {
