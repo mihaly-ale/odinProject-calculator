@@ -22,27 +22,14 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'operator') {
-    calculator.dataset.operator =
-      historyDisplayValue[historyDisplayValue.length - 1];
-    const operator = calculator.dataset.operator;
-    let secondNumber = currentDisplayValue;
-
-    if (historyDisplayValue) {
-      calculator.dataset.firstNumber = historyDisplayValue;
-      const firstNumber = calculator.dataset.firstNumber.slice(0, -1);
-      historyDisplay.textContent =
-        historyDisplayValue + currentDisplayValue + keyValue;
-
-      currentDisplay.textContent = calculate(
-        firstNumber,
-        operator,
-        secondNumber
-      );
-      historyDisplay.textContent = currentDisplay.textContent + keyValue;
-    } else {
-      historyDisplay.textContent = currentDisplayValue + keyValue;
+    inputDisplay.textContent = inputDisplayValue + keyValue;
+    const currentActiveOperator = calculator.querySelector(
+      '[data-active= "highlighted"]'
+    );
+    if (currentActiveOperator) {
+      currentActiveOperator.dataset.active = '';
     }
-    calculator.dataset.operator = keyValue;
+    key.dataset.active = 'highlighted';
   }
   calculator.dataset.previousKeyType = type;
 });
