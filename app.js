@@ -1,6 +1,6 @@
 const calculator = document.querySelector('.calculator');
-const historyDisplay = calculator.querySelector('.display-history');
-const currentDisplay = calculator.querySelector('.display-current');
+const inputDisplay = calculator.querySelector('.display-input');
+const outputDisplay = calculator.querySelector('.display-output');
 const keys = calculator.querySelector('.calculator__keys');
 
 keys.addEventListener('click', (event) => {
