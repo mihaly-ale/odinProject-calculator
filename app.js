@@ -6,18 +6,19 @@ const keys = calculator.querySelector('.calculator__keys');
 keys.addEventListener('click', (event) => {
   const key = event.target;
   const keyValue = key.textContent;
-  const currentDisplayValue = currentDisplay.textContent;
-  const historyDisplayValue = historyDisplay.textContent;
+  const inputDisplayValue = inputDisplay.textContent;
+  const outputDisplayValue = outputDisplay.textContent;
   const { type } = key.dataset;
 
   if (type === 'number') {
-    if (currentDisplayValue === '0') {
-      currentDisplay.textContent = keyValue;
-    } else if (calculator.dataset.previousKeyType === 'operator') {
-      currentDisplay.textContent = keyValue;
+    if (!inputDisplayValue) {
+      inputDisplay.textContent = keyValue;
     } else {
-      currentDisplay.textContent = currentDisplayValue + keyValue;
+      inputDisplay.textContent = inputDisplayValue + keyValue;
     }
+    /**
+     * TODO temporary update of outputDisplay value here
+     * */
   }
 
   if (type === 'operator') {
