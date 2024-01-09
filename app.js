@@ -58,8 +58,8 @@ keys.addEventListener('click', (event) => {
 });
 
 function calculate(firstNumber, operator, secondNumber) {
-  firstNumber = parseInt(firstNumber);
-  secondNumber = parseInt(secondNumber);
+  firstNumber = parseFloat(firstNumber);
+  secondNumber = parseFloat(secondNumber);
   if (operator === 'add') return firstNumber + secondNumber;
   if (operator === 'subtract') return firstNumber - secondNumber;
   if (operator === 'multiply') return firstNumber * secondNumber;
