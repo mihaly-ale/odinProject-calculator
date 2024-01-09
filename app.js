@@ -12,17 +12,27 @@ keys.addEventListener('click', (event) => {
 
   if (type === 'number') {
     if (!inputDisplayValue) {
-      inputDisplay.textContent = keyValue;
-    } else {
-      inputDisplay.textContent = inputDisplayValue + keyValue;
+      if (outputDisplayValue === '0') {
+        outputDisplay.textContent = keyValue;
+      } else {
+        outputDisplay.textContent += keyValue;
+      }
     }
+
+    if (calculator.dataset.previousKeyType === 'operator') {
+      outputDisplay.textContent = keyValue;
+    }
+    if (inputDisplayValue && calculator.dataset.previousKeyType === 'number') {
+      outputDisplay.textContent += keyValue;
+    }
+
     /**
      * TODO temporary update of outputDisplay value here
      * */
   }
 
   if (type === 'operator') {
-    inputDisplay.textContent = inputDisplayValue + keyValue;
+    inputDisplay.textContent = outputDisplayValue + keyValue;
     const currentActiveOperator = calculator.querySelector(
       '[data-active= "highlighted"]'
     );
@@ -31,6 +41,7 @@ keys.addEventListener('click', (event) => {
     }
     key.dataset.active = 'highlighted';
   }
+
   calculator.dataset.previousKeyType = type;
 });
 
