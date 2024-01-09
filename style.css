@@ -74,5 +74,5 @@ body {
 [data-active='highlighted'] {
   background: var(--mediumblue);
   color: var(--blue);
-  box-shadow: inset 2px 2px 2px var(--blue), 2px 2px 5px var(--white);
+  box-shadow: inset 2px 2px 2px var(--blue), inset -2px -2px 5px var(--white);
 }
