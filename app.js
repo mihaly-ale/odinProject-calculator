@@ -25,6 +25,12 @@ keys.addEventListener('click', (event) => {
     if (previousKeyType === 'operator') {
       outputDisplay.textContent = keyValue;
     }
+    if (previousKeyType === 'equal') {
+      outputDisplay.textContent = keyValue;
+    }
+    if (previousKeyType === 'clear') {
+      outputDisplay.textContent += keyValue;
+    }
     if (inputDisplayValue && previousKeyType === 'number') {
       outputDisplay.textContent += keyValue;
     }
@@ -55,11 +61,12 @@ keys.addEventListener('click', (event) => {
 
     inputDisplay.textContent += outputDisplayValue;
     outputDisplay.textContent = calculate(firstNumber, operator, secondNumber);
+    delete calculator.dataset.operator;
+    operatorKeys.forEach((key) => (key.dataset.active = ''));
   }
 
   if (type === 'clear') {
     outputDisplay.innerText = outputDisplayValue.slice(0, -1);
-    return;
   }
 
   if (type === 'allclear') {
