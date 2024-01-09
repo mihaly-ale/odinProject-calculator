@@ -9,7 +9,9 @@ keys.addEventListener('click', (event) => {
   const inputDisplayValue = inputDisplay.textContent;
   const outputDisplayValue = outputDisplay.textContent;
   const { type } = key.dataset;
+  const { previousKeyType } = calculator.dataset;
   const operatorKeys = keys.querySelectorAll('[data-type="operator"]');
+  const memoryContainer = document.querySelector('.memory__container');
 
   if (type === 'number') {
     if (!inputDisplayValue) {
@@ -20,10 +22,10 @@ keys.addEventListener('click', (event) => {
       }
     }
 
-    if (calculator.dataset.previousKeyType === 'operator') {
+    if (previousKeyType === 'operator') {
       outputDisplay.textContent = keyValue;
     }
-    if (inputDisplayValue && calculator.dataset.previousKeyType === 'number') {
+    if (inputDisplayValue && previousKeyType === 'number') {
       outputDisplay.textContent += keyValue;
     }
 
@@ -66,6 +68,27 @@ keys.addEventListener('click', (event) => {
     delete calculator.dataset.operator;
     delete calculator.dataset.firstNumber;
     operatorKeys.forEach((key) => (key.dataset.active = ''));
+  }
+
+  if (type === 'memory-store') {
+    if (outputDisplayValue) {
+      console.log(outputDisplayValue);
+      calculator.dataset.memory = outputDisplayValue;
+      memoryContainer.classList.add('active');
+    }
+  }
+
+  if (type === 'memory-delete') {
+    delete calculator.dataset.memory;
+    memoryContainer.classList.remove('active');
+  }
+
+  if (type === 'memory-recall') {
+    if (calculator.dataset.memory) {
+      outputDisplay.textContent = calculator.dataset.memory;
+    } else {
+      outputDisplay.textContent = 'Memory storage empty';
+    }
   }
 
   calculator.dataset.previousKeyType = type;
