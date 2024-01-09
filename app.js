@@ -54,6 +54,11 @@ keys.addEventListener('click', (event) => {
     outputDisplay.textContent = calculate(firstNumber, operator, secondNumber);
   }
 
+  if (type === 'clear') {
+    outputDisplay.innerText = outputDisplayValue.slice(0, -1);
+    return;
+  }
+
   calculator.dataset.previousKeyType = type;
 });
 
