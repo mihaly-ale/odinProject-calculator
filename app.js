@@ -40,15 +40,28 @@ keys.addEventListener('click', (event) => {
       currentActiveOperator.dataset.active = '';
     }
     key.dataset.active = 'highlighted';
+
+    calculator.dataset.firstNumber = outputDisplayValue;
+    calculator.dataset.operator = key.dataset.value;
+  }
+
+  if (type === 'equal') {
+    const firstNumber = calculator.dataset.firstNumber;
+    const operator = calculator.dataset.operator;
+    const secondNumber = outputDisplayValue;
+
+    inputDisplay.textContent += outputDisplayValue;
+    outputDisplay.textContent = calculate(firstNumber, operator, secondNumber);
   }
 
   calculator.dataset.previousKeyType = type;
 });
 
 function calculate(firstNumber, operator, secondNumber) {
-  console.log(firstNumber, operator, secondNumber);
   firstNumber = parseInt(firstNumber);
   secondNumber = parseInt(secondNumber);
-  if (operator === '+') return firstNumber + secondNumber;
-  if (operator === '-') return firstNumber - secondNumber;
+  if (operator === 'add') return firstNumber + secondNumber;
+  if (operator === 'subtract') return firstNumber - secondNumber;
+  if (operator === 'multiply') return firstNumber * secondNumber;
+  if (operator === 'divide') return firstNumber / secondNumber;
 }
