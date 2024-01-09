@@ -8,18 +8,20 @@
     <script src="app.js" defer></script>
     <title>The Odin Project - Calculator</title>
   </head>
+
   <body>
     <div class="wrapper">
       <div class="calculator">
         <div class="calculator__display">
           <div class="display-input"></div>
           <div class="display-output">0</div>
+          <span class="memory__container">M</span>
         </div>
         <div class="calculator__keys">
-          <button class="button" data-type="allclear">AC</button>
-          <button class="button" data-type="clear">C</button>
-          <button class="button">M</button>
-          <button class="button">&plusmn;</button>
+          <button class="button" data-type="memory-recall">MR</button>
+          <button class="button" data-type="memory-store">M+</button>
+          <button class="button" data-type="memory-delete">M-</button>
+          <button class="button" data-type="operator">%</button>
           <button class="button" data-type="number">7</button>
           <button class="button" data-type="number">8</button>
           <button class="button" data-type="number">9</button>
@@ -38,12 +40,15 @@
           <button class="button" data-type="operator" data-value="subtract">
             -
           </button>
+          <button class="button">&plusmn;</button>
           <button class="button" data-type="number">0</button>
           <button class="button" data-type="number">.</button>
-          <button class="button" data-type="equal">=</button>
           <button class="button" data-type="operator" data-value="add">
             +
           </button>
+          <button class="button" data-type="allclear">AC</button>
+          <button class="button" data-type="clear">C</button>
+          <button class="button" data-type="equal">=</button>
         </div>
       </div>
     </div>
