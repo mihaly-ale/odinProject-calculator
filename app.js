@@ -59,6 +59,13 @@ keys.addEventListener('click', (event) => {
     return;
   }
 
+  if (type === 'allclear') {
+    outputDisplay.innerText = '';
+    inputDisplay.innerText = '';
+    delete calculator.dataset.operator;
+    delete calculator.dataset.firstNumber;
+  }
+
   calculator.dataset.previousKeyType = type;
 });
 
