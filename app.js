@@ -9,6 +9,7 @@ keys.addEventListener('click', (event) => {
   const inputDisplayValue = inputDisplay.textContent;
   const outputDisplayValue = outputDisplay.textContent;
   const { type } = key.dataset;
+  const operatorKeys = keys.querySelectorAll('[data-type="operator"]');
 
   if (type === 'number') {
     if (!inputDisplayValue) {
@@ -64,6 +65,7 @@ keys.addEventListener('click', (event) => {
     inputDisplay.innerText = '';
     delete calculator.dataset.operator;
     delete calculator.dataset.firstNumber;
+    operatorKeys.forEach((key) => (key.dataset.active = ''));
   }
 
   calculator.dataset.previousKeyType = type;
