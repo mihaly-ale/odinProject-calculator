@@ -77,6 +77,11 @@ body {
   transition: all 350ms;
 }
 
+[data-type='equal'] {
+  background: rgb(223, 154, 25);
+  box-shadow: inset 2px 2px 2px var(--white), 2px 2px 5px var(--blue);
+}
+
 [data-active='highlighted'] {
   background: var(--mediumblue);
   color: var(--blue);
