@@ -108,4 +108,5 @@ function calculate(firstNumber, operator, secondNumber) {
   if (operator === 'subtract') return firstNumber - secondNumber;
   if (operator === 'multiply') return firstNumber * secondNumber;
   if (operator === 'divide') return firstNumber / secondNumber;
+  if (operator === 'percent') return (firstNumber * secondNumber) / 100;
 }
