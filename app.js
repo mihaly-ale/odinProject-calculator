@@ -21,6 +21,9 @@ keys.addEventListener('click', (event) => {
         outputDisplay.textContent += keyValue;
       }
     }
+    if (inputDisplayValue && previousKeyType === 'number') {
+      outputDisplay.textContent += keyValue;
+    }
 
     if (previousKeyType === 'operator') {
       outputDisplay.textContent = keyValue;
@@ -31,8 +34,9 @@ keys.addEventListener('click', (event) => {
     if (previousKeyType === 'clear') {
       outputDisplay.textContent += keyValue;
     }
-    if (inputDisplayValue && previousKeyType === 'number') {
-      outputDisplay.textContent += keyValue;
+    if (previousKeyType === 'memory-recall') {
+      outputDisplay.textContent = keyValue;
+      outputDisplay.style.removeProperty('font-size');
     }
 
     /**
@@ -94,7 +98,8 @@ keys.addEventListener('click', (event) => {
     if (calculator.dataset.memory) {
       outputDisplay.textContent = calculator.dataset.memory;
     } else {
-      outputDisplay.textContent = 'Memory storage empty';
+      outputDisplay.textContent = 'No memory found';
+      outputDisplay.style.fontSize = '.75rem';
     }
   }
 
