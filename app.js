@@ -38,10 +38,6 @@ keys.addEventListener('click', (event) => {
       outputDisplay.textContent = keyValue;
       outputDisplay.style.removeProperty('font-size');
     }
-
-    /**
-     * TODO temporary update of outputDisplay value here
-     * */
   }
 
   if (type === 'operator') {
@@ -59,13 +55,30 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'equal') {
-    const firstNumber = calculator.dataset.firstNumber;
+    let firstNumber = calculator.dataset.firstNumber;
     const operator = calculator.dataset.operator;
-    const secondNumber = outputDisplayValue;
+    let secondNumber = outputDisplayValue;
+    let tempSecondaryNumber; //
+    if (previousKeyType !== 'equal') {
+      inputDisplay.textContent += outputDisplayValue;
+      calculator.dataset.tempSecondaryNumber = outputDisplayValue; // before calculate, outputDisplayValue is the second operand, after it updates to the result of the function. Here it is saved and lifted to the else block.
+      outputDisplay.textContent = calculate(
+        firstNumber,
+        operator,
+        secondNumber
+      );
+    } else {
+      firstNumber = outputDisplayValue;
+      tempSecondaryNumber = calculator.dataset.tempSecondaryNumber;
+      inputDisplay.textContent =
+        outputDisplay.textContent + operator + tempSecondaryNumber;
+      outputDisplay.textContent = calculate(
+        firstNumber,
+        operator,
+        tempSecondaryNumber
+      );
+    }
 
-    inputDisplay.textContent += outputDisplayValue + keyValue;
-    outputDisplay.textContent = calculate(firstNumber, operator, secondNumber);
-    delete calculator.dataset.operator;
     operatorKeys.forEach((key) => (key.dataset.active = ''));
   }
 
