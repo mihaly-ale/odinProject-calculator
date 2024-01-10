@@ -63,7 +63,7 @@ keys.addEventListener('click', (event) => {
     const operator = calculator.dataset.operator;
     const secondNumber = outputDisplayValue;
 
-    inputDisplay.textContent += outputDisplayValue;
+    inputDisplay.textContent += outputDisplayValue + keyValue;
     outputDisplay.textContent = calculate(firstNumber, operator, secondNumber);
     delete calculator.dataset.operator;
     operatorKeys.forEach((key) => (key.dataset.active = ''));
