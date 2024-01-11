@@ -41,7 +41,12 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'operator') {
-    inputDisplay.textContent = outputDisplayValue + keyValue;
+    if (inputDisplayValue) {
+      inputDisplay.textContent += outputDisplayValue + keyValue;
+    } else {
+      inputDisplay.textContent = outputDisplayValue + keyValue;
+    }
+
     const currentActiveOperator = calculator.querySelector(
       '[data-active= "highlighted"]'
     );
