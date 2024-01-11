@@ -90,7 +90,18 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'clear') {
-    outputDisplay.innerText = outputDisplayValue.slice(0, -1);
+    if (outputDisplayValue) {
+      console.log(inputDisplayValue);
+      outputDisplay.innerText = outputDisplayValue.slice(0, -1);
+    } else {
+      delete calculator.dataset.operator;
+      delete calculator.dataset.operatorSign;
+      delete calculator.dataset.firstNumber;
+      delete calculator.dataset.tempSecondaryNumber;
+      operatorKeys.forEach((key) => (key.dataset.active = ''));
+      inputDisplay.innerText = '';
+      outputDisplay.innerText = '0';
+    }
   }
 
   if (type === 'allclear') {
