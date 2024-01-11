@@ -58,8 +58,13 @@ keys.addEventListener('click', (event) => {
     let firstNumber = calculator.dataset.firstNumber;
     const operator = calculator.dataset.operator;
     let secondNumber = outputDisplayValue;
-    let tempSecondaryNumber; //
+    let tempSecondaryNumber;
+    let operatorSign;
+
     if (previousKeyType !== 'equal') {
+      operatorSign = inputDisplay.innerText;
+      operatorSign = operatorSign.slice(-1);
+      calculator.dataset.operatorSign = operatorSign;
       inputDisplay.textContent += outputDisplayValue;
       calculator.dataset.tempSecondaryNumber = outputDisplayValue; // before calculate, outputDisplayValue is the second operand, after it updates to the result of the function. Here it is saved and lifted to the else block.
       outputDisplay.textContent = calculate(
@@ -68,10 +73,12 @@ keys.addEventListener('click', (event) => {
         secondNumber
       );
     } else {
+      operatorSign = calculator.dataset.operatorSign;
+
       firstNumber = outputDisplayValue;
       tempSecondaryNumber = calculator.dataset.tempSecondaryNumber;
       inputDisplay.textContent =
-        outputDisplay.textContent + operator + tempSecondaryNumber;
+        outputDisplay.textContent + operatorSign + tempSecondaryNumber;
       outputDisplay.textContent = calculate(
         firstNumber,
         operator,
