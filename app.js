@@ -174,6 +174,16 @@ keys.addEventListener('click', (event) => {
     }
   }
 
+  if (type === 'decimal') {
+    if (outputDisplayValue.includes('.')) {
+      console.warn(
+        'Duplicate decimal points are not allowed in the display field.'
+      );
+    } else {
+      outputDisplay.textContent += keyValue;
+    }
+  }
+
   calculator.dataset.previousKeyType = type;
 });
 
