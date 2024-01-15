@@ -39,7 +39,7 @@ keys.addEventListener('click', (event) => {
         // a clear state for the next opartaion
         outputDisplay.textContent = keyValue;
         inputDisplay.textContent = '';
-        delete calculator.dataset.initialSecondaryNumber;
+        delete calculator.dataset.initialSecondNumber;
         delete calculator.dataset.operatorSign;
         delete calculator.dataset.firstNumber;
         delete calculator.dataset.operator;
@@ -85,13 +85,13 @@ keys.addEventListener('click', (event) => {
     let firstNumber = calculator.dataset.firstNumber;
     const operator = calculator.dataset.operator;
     const secondNumber = outputDisplayValue;
-    let initialSecondaryNumber;
+    let initialSecondNumber;
     let operatorSign; // only for display
 
     if (previousKeyType !== 'equal') {
       // single operation
 
-      calculator.dataset.initialSecondaryNumber = outputDisplayValue; // save initial second operand(secondNumber) for repeated operation
+      calculator.dataset.initialSecondNumber = outputDisplayValue; // save initial second operand(secondNumber) for repeated operation
       calculator.dataset.operatorSign = inputDisplay.innerText.slice(-1); // store operator sign for repeated operation's inputDisplay value
 
       outputDisplay.textContent = calculate(
@@ -107,15 +107,15 @@ keys.addEventListener('click', (event) => {
       calculator.dataset.firstNumber = firstNumber;
 
       operatorSign = calculator.dataset.operatorSign;
-      initialSecondaryNumber = calculator.dataset.initialSecondaryNumber;
+      initialSecondNumber = calculator.dataset.initialSecondNumber;
 
       inputDisplay.textContent =
-        outputDisplay.textContent + operatorSign + initialSecondaryNumber;
+        outputDisplay.textContent + operatorSign + initialSecondNumber;
 
       outputDisplay.textContent = calculate(
         firstNumber,
         operator,
-        initialSecondaryNumber
+        initialSecondNumber
       );
     }
   }
@@ -221,5 +221,5 @@ function allClear(operatorKeys) {
   delete calculator.dataset.operator;
   delete calculator.dataset.operatorSign;
   delete calculator.dataset.firstNumber;
-  delete calculator.dataset.initialSecondaryNumber;
+  delete calculator.dataset.initialSecondNumber;
 }
