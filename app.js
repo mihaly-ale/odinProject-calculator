@@ -132,13 +132,7 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'allclear') {
-    outputDisplay.innerText = '0';
-    inputDisplay.innerText = '';
-    delete calculator.dataset.operator;
-    delete calculator.dataset.operatorSign;
-    delete calculator.dataset.firstNumber;
-    delete calculator.dataset.tempSecondaryNumber;
-    operatorKeys.forEach((key) => (key.dataset.active = ''));
+    allClear(operatorKeys);
   }
 
   if (type === 'memory-store') {
@@ -194,3 +188,13 @@ function toggleActiveOperator(key) {
   key.dataset.active = 'highlighted';
 }
 
+function allClear(operatorKeys) {
+  outputDisplay.innerText = '0';
+  outputDisplay.style.removeProperty('font-size');
+  inputDisplay.innerText = '';
+  operatorKeys.forEach((key) => (key.dataset.active = ''));
+  delete calculator.dataset.operator;
+  delete calculator.dataset.operatorSign;
+  delete calculator.dataset.firstNumber;
+  delete calculator.dataset.initialSecondaryNumber;
+}
