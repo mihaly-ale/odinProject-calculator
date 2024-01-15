@@ -151,8 +151,10 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'memory-delete') {
-    delete calculator.dataset.memory;
-    memoryContainer.classList.remove('active');
+    if (calculator.dataset.memory) {
+      delete calculator.dataset.memory;
+      memoryContainer.classList.remove('active');
+    } else console.warn('No memory to delete.');
   }
 
   if (type === 'memory-recall') {
