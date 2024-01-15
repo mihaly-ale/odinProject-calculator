@@ -3,7 +3,9 @@ const inputDisplay = calculator.querySelector('.display-input');
 const outputDisplay = calculator.querySelector('.display-output');
 const keys = calculator.querySelector('.calculator__keys');
 
-keys.addEventListener('click', (event) => {
+keys.addEventListener('click', handleClickEvent);
+
+function handleClickEvent(event) {
   const key = event.target;
   const keyValue = key.textContent;
   const inputDisplayValue = inputDisplay.textContent;
@@ -191,7 +193,7 @@ keys.addEventListener('click', (event) => {
   }
 
   calculator.dataset.previousKeyType = type;
-});
+}
 
 function calculate(firstNumber, operator, secondNumber) {
   firstNumber = parseFloat(firstNumber);
