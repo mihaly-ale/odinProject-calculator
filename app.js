@@ -117,17 +117,20 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'clear') {
-    if (outputDisplayValue) {
-      console.log(inputDisplayValue);
+    if (previousKeyType === 'equal') {
+      //result stays as next operation first number, previous oparation is cleared
+      inputDisplay.textContent = '';
+      return;
+    }
+
+    if (
+      // clears last character of any number, but text
+      outputDisplayValue &&
+      Number(outputDisplayValue)
+    ) {
       outputDisplay.innerText = outputDisplayValue.slice(0, -1);
     } else {
-      delete calculator.dataset.operator;
-      delete calculator.dataset.operatorSign;
-      delete calculator.dataset.firstNumber;
-      delete calculator.dataset.tempSecondaryNumber;
-      operatorKeys.forEach((key) => (key.dataset.active = ''));
-      inputDisplay.innerText = '';
-      outputDisplay.innerText = '0';
+      allClear(operatorKeys);
     }
   }
 
