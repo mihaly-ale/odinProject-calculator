@@ -84,36 +84,40 @@ keys.addEventListener('click', (event) => {
   if (type === 'equal') {
     let firstNumber = calculator.dataset.firstNumber;
     const operator = calculator.dataset.operator;
-    let secondNumber = outputDisplayValue;
-    let tempSecondaryNumber;
-    let operatorSign;
+    const secondNumber = outputDisplayValue;
+    let initialSecondaryNumber;
+    let operatorSign; // only for display
 
     if (previousKeyType !== 'equal') {
-      operatorSign = inputDisplay.innerText;
-      operatorSign = operatorSign.slice(-1);
-      calculator.dataset.operatorSign = operatorSign;
-      inputDisplay.textContent += outputDisplayValue;
-      calculator.dataset.tempSecondaryNumber = outputDisplayValue; // before calculate, outputDisplayValue is the second operand, after it updates to the result of the function. Here it is saved and lifted to the else block.
+      // single operation
+
+      calculator.dataset.initialSecondaryNumber = outputDisplayValue; // save initial second operand(secondNumber) for repeated operation
+      calculator.dataset.operatorSign = inputDisplay.innerText.slice(-1); // store operator sign for repeated operation's inputDisplay value
+
       outputDisplay.textContent = calculate(
         firstNumber,
         operator,
         secondNumber
       );
+      inputDisplay.textContent += outputDisplayValue;
     } else {
-      operatorSign = calculator.dataset.operatorSign;
+      // multiple equal press keeps adding the initial secondary number to the result (e.g: 1+2=3, (3+2)=5, (5+2)=7, etc)
 
       firstNumber = outputDisplayValue;
-      tempSecondaryNumber = calculator.dataset.tempSecondaryNumber;
+      calculator.dataset.firstNumber = firstNumber;
+
+      operatorSign = calculator.dataset.operatorSign;
+      initialSecondaryNumber = calculator.dataset.initialSecondaryNumber;
+
       inputDisplay.textContent =
-        outputDisplay.textContent + operatorSign + tempSecondaryNumber;
+        outputDisplay.textContent + operatorSign + initialSecondaryNumber;
+
       outputDisplay.textContent = calculate(
         firstNumber,
         operator,
-        tempSecondaryNumber
+        initialSecondaryNumber
       );
     }
-
-    operatorKeys.forEach((key) => (key.dataset.active = ''));
   }
 
   if (type === 'clear') {
