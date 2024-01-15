@@ -63,13 +63,7 @@ keys.addEventListener('click', (event) => {
       inputDisplay.textContent = outputDisplayValue + keyValue;
     }
 
-    const currentActiveOperator = calculator.querySelector(
-      '[data-active= "highlighted"]'
-    );
-    if (currentActiveOperator) {
-      currentActiveOperator.dataset.active = '';
-    }
-    key.dataset.active = 'highlighted';
+    toggleActiveOperator(key);
 
     calculator.dataset.firstNumber = outputDisplayValue;
     calculator.dataset.operator = key.dataset.value;
@@ -177,3 +171,14 @@ function calculate(firstNumber, operator, secondNumber) {
   if (operator === 'divide') return firstNumber / secondNumber;
   if (operator === 'percent') return (firstNumber * secondNumber) / 100;
 }
+
+function toggleActiveOperator(key) {
+  const currentActiveOperator = calculator.querySelector(
+    '[data-active= "highlighted"]'
+  );
+  if (currentActiveOperator) {
+    currentActiveOperator.dataset.active = '';
+  }
+  key.dataset.active = 'highlighted';
+}
+
