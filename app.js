@@ -16,25 +16,41 @@ keys.addEventListener('click', (event) => {
   if (type === 'number') {
     if (!inputDisplayValue) {
       if (outputDisplayValue === '0') {
-        outputDisplay.textContent = keyValue;
+        outputDisplay.textContent = keyValue; // first number key
       } else {
-        outputDisplay.textContent += keyValue;
+        outputDisplay.textContent += keyValue; // initial concat of numbers, before operation
       }
     }
-    if (inputDisplayValue && previousKeyType === 'number') {
-      outputDisplay.textContent += keyValue;
+
+    if (inputDisplayValue) {
+      //exists after operator key lifts value to the top display
+      if (previousKeyType === 'operator') {
+        outputDisplay.textContent = keyValue; // adds new number after operator is pressed
+        operatorKeys.forEach((key) => (key.dataset.active = ''));
+      }
+      if (
+        previousKeyType === 'number' ||
+        previousKeyType === 'clear' ||
+        previousKeyType === 'decimal'
+      ) {
+        outputDisplay.textContent += keyValue; //concat digits of second number
+      }
+      if (previousKeyType === 'equal') {
+        // a clear state for the next opartaion
+        outputDisplay.textContent = keyValue;
+        inputDisplay.textContent = '';
+        delete calculator.dataset.initialSecondaryNumber;
+        delete calculator.dataset.operatorSign;
+        delete calculator.dataset.firstNumber;
+        delete calculator.dataset.operator;
+      }
     }
 
-    if (previousKeyType === 'operator') {
-      outputDisplay.textContent = keyValue;
-    }
-    if (previousKeyType === 'equal') {
-      outputDisplay.textContent = keyValue;
-    }
-    if (previousKeyType === 'clear') {
-      outputDisplay.textContent += keyValue;
-    }
-    if (previousKeyType === 'memory-recall') {
+    if (
+      // prevents concatenation to error messages, or memory
+      previousKeyType === 'memory-recall' ||
+      previousKeyType === 'memory-store'
+    ) {
       outputDisplay.textContent = keyValue;
       outputDisplay.style.removeProperty('font-size');
     }
