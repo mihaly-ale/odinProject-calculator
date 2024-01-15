@@ -139,10 +139,14 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'memory-store') {
-    if (outputDisplayValue) {
-      console.log(outputDisplayValue);
+    if (outputDisplayValue && Number(outputDisplayValue)) {
+      //store number values
       calculator.dataset.memory = outputDisplayValue;
       memoryContainer.classList.add('active');
+    } else {
+      //errors no state
+      outputDisplay.textContent = 'Error';
+      console.warn('No value to be stored.');
     }
   }
 
