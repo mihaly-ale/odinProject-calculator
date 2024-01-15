@@ -57,10 +57,22 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'operator') {
-    if (inputDisplayValue) {
-      inputDisplay.textContent += outputDisplayValue + keyValue;
+    if (!inputDisplayValue) {
+      // operator brings first operand to the top display
+      inputDisplay.textContent = outputDisplay.textContent + keyValue;
     } else {
-      inputDisplay.textContent = outputDisplayValue + keyValue;
+      if (previousKeyType === 'operator') {
+        //operator cycling
+        let operatorsRegex = /[+\-×÷%]/;
+        inputDisplay.textContent = inputDisplay.textContent.replace(
+          operatorsRegex,
+          keyValue
+        );
+      }
+      if (previousKeyType === 'equal') {
+        // update display for repeated operation, chaining
+        inputDisplay.textContent = outputDisplayValue + keyValue;
+      }
     }
 
     toggleActiveOperator(key);
