@@ -171,10 +171,12 @@ keys.addEventListener('click', (event) => {
   }
 
   if (type === 'plusminus') {
-    if (outputDisplayValue.charAt(0) === '-') {
-      outputDisplay.textContent = outputDisplayValue.slice(1);
-    } else {
-      outputDisplay.textContent = '-' + outputDisplayValue;
+    if (Number(outputDisplayValue)) {
+      if (outputDisplayValue.charAt(0) === '-') {
+        outputDisplay.textContent = outputDisplayValue.slice(1);
+      } else {
+        outputDisplay.textContent = '-' + outputDisplayValue;
+      }
     }
   }
 
