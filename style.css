@@ -49,12 +49,14 @@ body {
     color: var(--grey);
     padding-right: 0.25em;
     height: 1rem;
+    max-width: 14ch;
   }
 
   .display-output {
     padding-right: 0.25em;
     height: 1.5rem;
     margin-top: 0.5rem;
+    max-width: 14ch;
   }
 }
 

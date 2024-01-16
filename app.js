@@ -16,6 +16,14 @@ function handleClickEvent(event) {
   const memoryContainer = document.querySelector('.memory__container');
 
   if (type === 'number') {
+    if (isNaN(outputDisplayValue)) {
+      console.log('not a number here');
+    }
+    if (outputDisplayValue.length >= 12 && previousKeyType === 'number') {
+      outputDisplay.textContent = Number(outputDisplayValue).toExponential(4);
+      return;
+    }
+
     if (!inputDisplayValue) {
       if (outputDisplayValue === '0') {
         outputDisplay.textContent = keyValue; // first number key
