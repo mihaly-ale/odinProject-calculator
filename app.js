@@ -79,7 +79,7 @@ function handleClickEvent(event) {
 
     toggleActiveOperator(key);
 
-    calculator.dataset.firstNumber = outputDisplayValue;
+    calculator.dataset.firstNumber = outputDisplay.textContent;
     calculator.dataset.operator = key.dataset.value;
   }
 
