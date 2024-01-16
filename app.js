@@ -16,9 +16,8 @@ function handleClickEvent(event) {
   const memoryContainer = document.querySelector('.memory__container');
 
   if (type === 'number') {
-    if (isNaN(outputDisplayValue)) {
-      console.log('not a number here');
-    }
+    clearIfStringOnDisplay(outputDisplayValue, type, keyValue);
+
     if (outputDisplayValue.length >= 12 && previousKeyType === 'number') {
       outputDisplay.textContent = Number(outputDisplayValue).toExponential(4);
       return;
@@ -55,18 +54,11 @@ function handleClickEvent(event) {
         delete calculator.dataset.operator;
       }
     }
-
-    if (
-      // prevents concatenation to error messages, or memory
-      previousKeyType === 'memory-recall' ||
-      previousKeyType === 'memory-store'
-    ) {
-      outputDisplay.textContent = keyValue;
-      outputDisplay.style.removeProperty('font-size');
-    }
   }
 
   if (type === 'operator') {
+    clearIfStringOnDisplay(outputDisplayValue, type, keyValue);
+
     if (!inputDisplayValue) {
       // operator brings first operand to the top display
       inputDisplay.textContent = outputDisplay.textContent + keyValue;
@@ -232,4 +224,19 @@ function allClear(operatorKeys) {
   delete calculator.dataset.operatorSign;
   delete calculator.dataset.firstNumber;
   delete calculator.dataset.initialSecondNumber;
+}
+
+function clearIfStringOnDisplay(outputDisplayValue, type, keyValue) {
+  if (
+    // prevents concatenation when display has string values
+    outputDisplayValue === 'Error' ||
+    outputDisplayValue === 'No memory found' ||
+    outputDisplayValue === 'Infinity' ||
+    outputDisplayValue === 'NaN'
+  ) {
+    type === 'number'
+      ? (outputDisplay.textContent = '')
+      : (outputDisplay.textContent = '0');
+    outputDisplay.style.removeProperty('font-size');
+  }
 }
