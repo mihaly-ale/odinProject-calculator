@@ -75,7 +75,7 @@ function handleClickEvent(event, pressedKey) {
       if (outputDisplayValue === '0') {
         outputDisplay.textContent = keyValue; // first number key
       } else {
-        outputDisplay.textContent += keyValue; // initial concat of numbers, before operation
+        outputDisplay.textContent += keyValue; // initial concatenation of numbers, before operation
       }
     }
 
@@ -93,7 +93,7 @@ function handleClickEvent(event, pressedKey) {
         outputDisplay.textContent += keyValue; //concat digits of second number
       }
       if (previousKeyType === 'equal') {
-        // a clear state for the next opartaion
+        // a clear state for the next operation
         outputDisplay.textContent = keyValue;
         inputDisplay.textContent = '';
         delete calculator.dataset.initialSecondNumber;
@@ -173,7 +173,7 @@ function handleClickEvent(event, pressedKey) {
 
   if (type === 'clear') {
     if (previousKeyType === 'equal') {
-      //result stays as next operation first number, previous oparation is cleared
+      //result stays as next operation first number, previous operation is cleared
       inputDisplay.textContent = '';
       return;
     }
