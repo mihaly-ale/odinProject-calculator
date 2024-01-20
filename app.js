@@ -4,13 +4,20 @@ const outputDisplay = calculator.querySelector('.display-output');
 const keys = calculator.querySelector('.calculator__keys');
 
 keys.addEventListener('click', handleClickEvent);
+window.addEventListener('keydown', handleKeyEvent);
 
-function handleClickEvent(event) {
-  const key = event.target;
-  const keyValue = key.textContent;
-  const inputDisplayValue = inputDisplay.textContent;
-  const outputDisplayValue = outputDisplay.textContent;
-  const { type } = key.dataset;
+function handleKeyEvent(event) {
+  let pressedKey = {}; // object to store type (clicked key) and value (for operator)
+  if (event.key >= 0 && event.key <= 9) pressedKey.type = 'number';
+  handleClickEvent(event, pressedKey);
+}
+
+function handleClickEvent(event, pressedKey) {
+  const key = event instanceof MouseEvent ? event.target : pressedKey;
+  const keyValue = event instanceof MouseEvent ? key.textContent : event.key;
+  const inputDisplayValue = inputDisplay.textContent.trim();
+  const outputDisplayValue = outputDisplay.textContent.trim();
+  const { type } = event instanceof MouseEvent ? key.dataset : pressedKey;
   const { previousKeyType } = calculator.dataset;
   const operatorKeys = keys.querySelectorAll('[data-type="operator"]');
   const memoryContainer = document.querySelector('.memory__container');
