@@ -9,6 +9,10 @@ window.addEventListener('keydown', handleKeyEvent);
 function handleKeyEvent(event) {
   let pressedKey = {}; // object to store type (clicked key) and value (for operator)
   if (event.key >= 0 && event.key <= 9) pressedKey.type = 'number';
+  if (event.key === '+') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'add';
+  }
   handleClickEvent(event, pressedKey);
 }
 
@@ -87,7 +91,8 @@ function handleClickEvent(event, pressedKey) {
     toggleActiveOperator(key);
 
     calculator.dataset.firstNumber = outputDisplay.textContent;
-    calculator.dataset.operator = key.dataset.value;
+    calculator.dataset.operator =
+      event instanceof MouseEvent ? key.dataset.value : pressedKey.value;
   }
 
   if (type === 'equal') {
