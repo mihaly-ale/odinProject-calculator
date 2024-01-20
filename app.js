@@ -37,6 +37,15 @@ function handleKeyEvent(event) {
   if (event.key === 'Delete') {
     pressedKey.type = 'allclear';
   }
+  if (event.key === 'ArrowUp') {
+    pressedKey.type = 'memory-store';
+  }
+  if (event.key === 'ArrowDown') {
+    pressedKey.type = 'memory-recall';
+  }
+  if (event.key === 'd') {
+    pressedKey.type = 'memory-delete';
+  }
   if (event.key === '.') {
     pressedKey.type = 'decimal';
   }
