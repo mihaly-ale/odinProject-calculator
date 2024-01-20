@@ -9,6 +9,7 @@ window.addEventListener('keydown', handleKeyEvent);
 function handleKeyEvent(event) {
   let pressedKey = {}; // object to store type (clicked key) and value (for operator)
   if (event.key >= 0 && event.key <= 9) pressedKey.type = 'number';
+  if (event.key === 'Enter') pressedKey.type = 'equal';
   if (event.key === '+') {
     pressedKey.type = 'operator';
     pressedKey.value = 'add';
@@ -29,6 +30,12 @@ function handleKeyEvent(event) {
   if (event.key === '%') {
     pressedKey.type = 'operator';
     pressedKey.value = 'percent';
+  }
+  if (event.key === 'Backspace') {
+    pressedKey.type = 'clear';
+  }
+  if (event.key === 'Delete') {
+    pressedKey.type = 'allclear';
   }
   if (event.key === '.') {
     pressedKey.type = 'decimal';
