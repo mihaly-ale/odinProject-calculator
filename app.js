@@ -13,6 +13,27 @@ function handleKeyEvent(event) {
     pressedKey.type = 'operator';
     pressedKey.value = 'add';
   }
+  if (event.key === '-') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'subtract';
+  }
+  if (event.key === '*') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'multiply';
+  }
+  if (event.key === '/') {
+    event.preventDefault();
+    pressedKey.type = 'operator';
+    pressedKey.value = 'divide';
+  }
+  if (event.key === '%') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'percent';
+  }
+  if (event.key === '.') {
+    pressedKey.type = 'decimal';
+  }
+
   handleClickEvent(event, pressedKey);
 }
 
