@@ -42,15 +42,14 @@ body {
   font-size: calc(1rem * 1.5);
   position: relative;
 
-  .display-input {
+  .previous-input {
     font-size: 0.65rem;
     color: var(--grey);
     padding-right: 0.25em;
     height: 1rem;
-    max-width: 14ch;
   }
 
-  .display-output {
+  .current-input {
     padding-right: 0.25em;
     height: 1.5rem;
     margin-top: 0.5rem;
