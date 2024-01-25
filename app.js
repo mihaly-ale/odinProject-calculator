@@ -74,8 +74,9 @@ function handleClickEvent(event, pressedKey) {
         previousInput.textContent = `${currentOperand} ` + keyValue;
       }
     } else {
-      if (previousKeyType === 'operator') {
+      if (previousKeyType === 'operator' || previousKeyType === 'undefined') {
         //operator cycling
+        //undefined when operator entered in the main keyboard
         let operatorsRegex = /[+\-×÷%]/;
         previousInput.textContent = previousInput.textContent.replace(
           operatorsRegex,
@@ -86,7 +87,11 @@ function handleClickEvent(event, pressedKey) {
         // result to first operand
         previousInput.textContent = `${currentOperand} ` + keyValue;
       }
-      if (previousKeyType === 'number' || previousKeyType === 'memory-store') {
+      if (
+        previousKeyType === 'number' ||
+        previousKeyType === 'memory-store' ||
+        previousKeyType === 'undefined'
+      ) {
         // immediate evaluation
         let tempSum = calculate(
           calculator.dataset.firstNumber,
