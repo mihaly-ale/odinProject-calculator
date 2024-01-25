@@ -70,26 +70,20 @@ function handleClickEvent(event, pressedKey) {
   const memoryContainer = document.querySelector('.memory__container');
 
   if (type === 'number') {
-    if (currentOperand.length >= 12 && previousKeyType === 'number') {
-      currentOperand.textContent = Number(currentOperand).toExponential(4);
-      return;
-    }
-
     if (!previousOperand) {
       if (isNaN(currentOperand)) {
         clearIfTextOnDisplay(type, (currentOperand = '0'));
       }
       if (currentOperand === '0') {
-        currentOperand.textContent = keyValue; // first number key
+        currentInput.textContent = keyValue;
       } else {
-        currentOperand.textContent += keyValue; // initial concatenation of numbers, before operation
+        appendNumber(keyValue, currentOperand);
       }
     }
 
     if (previousOperand) {
-      //exists after operator key lifts value to the top display
       if (previousKeyType === 'operator') {
-        currentOperand.textContent = keyValue; // adds new number after operator is pressed
+        currentInput.textContent = keyValue;
         operatorKeys.forEach((key) => (key.dataset.active = ''));
       }
       if (
@@ -97,12 +91,12 @@ function handleClickEvent(event, pressedKey) {
         previousKeyType === 'clear' ||
         previousKeyType === 'decimal'
       ) {
-        currentOperand.textContent += keyValue; //concat digits of second number
+        appendNumber(keyValue, currentOperand);
       }
       if (previousKeyType === 'equal') {
         // a clear state for the next operation
-        currentOperand.textContent = keyValue;
-        previousOperand.textContent = '';
+        currentInput.textContent = keyValue;
+        previousInput.textContent = '';
         delete calculator.dataset.initialSecondNumber;
         delete calculator.dataset.operatorSign;
         delete calculator.dataset.firstNumber;
@@ -123,7 +117,7 @@ function handleClickEvent(event, pressedKey) {
       if (previousKeyType === 'operator') {
         //operator cycling
         let operatorsRegex = /[+\-×÷%]/;
-        previousOperand.textContent = previousOperand.textContent.replace(
+        previousInput.textContent = previousInput.textContent.replace(
           operatorsRegex,
           keyValue
         );
@@ -136,7 +130,7 @@ function handleClickEvent(event, pressedKey) {
 
     toggleActiveOperator(key);
 
-    calculator.dataset.firstNumber = currentOperand.textContent;
+    calculator.dataset.firstNumber = currentInput.textContent;
     calculator.dataset.operator =
       event instanceof MouseEvent ? key.dataset.value : pressedKey.value;
   }
@@ -192,7 +186,7 @@ function handleClickEvent(event, pressedKey) {
       currentOperand &&
       Number(currentOperand)
     ) {
-      currentOperand.innerText = currentOperand.slice(0, -1);
+      currentInput.innerText = currentOperand.slice(0, -1);
     } else {
       allClear(operatorKeys);
     }
@@ -204,12 +198,13 @@ function handleClickEvent(event, pressedKey) {
 
   if (type === 'memory-store') {
     if (currentOperand && Number(currentOperand)) {
-      //store number values
+      //store only number values
       calculator.dataset.memory = currentOperand;
       memoryContainer.classList.add('active');
     } else {
       //errors no state
-      currentOperand.textContent = 'Error';
+      currentInput.style.fontSize = '.85rem';
+      currentInput.textContent = 'Error: Nothing to store.';
       console.warn('No value to be stored.');
     }
   }
@@ -223,19 +218,19 @@ function handleClickEvent(event, pressedKey) {
 
   if (type === 'memory-recall') {
     if (calculator.dataset.memory) {
-      currentOperand.textContent = calculator.dataset.memory;
+      currentInput.textContent = calculator.dataset.memory;
     } else {
-      currentOperand.textContent = 'No memory found';
-      currentOperand.style.fontSize = '.75rem';
+      currentInput.style.fontSize = '.85rem';
+      currentInput.textContent = 'No memory found';
     }
   }
 
   if (type === 'plusminus') {
     if (Number(currentOperand)) {
       if (currentOperand.charAt(0) === '-') {
-        currentOperand.textContent = currentOperand.slice(1);
+        currentInput.textContent = currentOperand.slice(1);
       } else {
-        currentOperand.textContent = '-' + currentOperand;
+        currentInput.textContent = '-' + currentOperand;
       }
     } else {
       clearIfTextOnDisplay(type);
@@ -252,7 +247,7 @@ function handleClickEvent(event, pressedKey) {
         'Duplicate decimal points are not allowed in the display field.'
       );
     } else {
-      currentOperand.textContent += keyValue;
+      currentInput.textContent += keyValue;
     }
   }
 
@@ -280,9 +275,9 @@ function toggleActiveOperator(key) {
 }
 
 function allClear(operatorKeys) {
-  currentOperand.innerText = '0';
-  currentOperand.style.removeProperty('font-size');
-  previousOperand.innerText = '';
+  currentInput.innerText = '0';
+  currentInput.style.removeProperty('font-size');
+  previousInput.innerText = '';
   operatorKeys.forEach((key) => (key.dataset.active = ''));
   delete calculator.dataset.operator;
   delete calculator.dataset.operatorSign;
@@ -296,7 +291,14 @@ function clearIfTextOnDisplay(type, currentOperand) {
   currentOperand = '';
 }
 
+function appendNumber(keyValue, currentOperand) {
+  currentOperand.length < 20
+    ? (currentInput.textContent += keyValue)
+    : (currentInput.textContent = currentOperand);
 }
 
+function toExponential(length, input, value) {
+  if (value.length >= length) {
+    input.textContent = Number(value).toExponential(4);
   }
 }
