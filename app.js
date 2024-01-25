@@ -123,8 +123,22 @@ function handleClickEvent(event, pressedKey) {
         );
       }
       if (previousKeyType === 'equal') {
-        // update display for repeated operation, chaining
-        previousOperand.textContent = currentOperand + keyValue;
+        // result to first operand
+        previousInput.textContent = `${currentOperand} ` + keyValue;
+      }
+      if (previousKeyType === 'number' || previousKeyType === 'memory-store') {
+        // immediate evaluation
+        let tempSum = calculate(
+          calculator.dataset.firstNumber,
+          calculator.dataset.operator,
+          currentOperand
+        );
+        previousInput.textContent = `${tempSum} ` + keyValue;
+        currentInput.textContent = '';
+        calculator.dataset.firstNumber = tempSum;
+        calculator.dataset.operator =
+          event instanceof MouseEvent ? key.dataset.value : pressedKey.value;
+        return;
       }
     }
 
