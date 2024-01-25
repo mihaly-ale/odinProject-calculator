@@ -70,14 +70,15 @@ function handleClickEvent(event, pressedKey) {
   const memoryContainer = document.querySelector('.memory__container');
 
   if (type === 'number') {
-    clearIfStringOnDisplay(currentOperand, type, keyValue);
-
     if (currentOperand.length >= 12 && previousKeyType === 'number') {
       currentOperand.textContent = Number(currentOperand).toExponential(4);
       return;
     }
 
     if (!previousOperand) {
+      if (isNaN(currentOperand)) {
+        clearIfTextOnDisplay(type, (currentOperand = '0'));
+      }
       if (currentOperand === '0') {
         currentOperand.textContent = keyValue; // first number key
       } else {
@@ -111,11 +112,13 @@ function handleClickEvent(event, pressedKey) {
   }
 
   if (type === 'operator') {
-    clearIfStringOnDisplay(currentOperand, type, keyValue);
-
     if (!previousOperand) {
-      // operator brings first operand to the top display
-      previousOperand.textContent = currentOperand.textContent + keyValue;
+      if (isNaN(currentOperand)) {
+        clearIfTextOnDisplay(type);
+        return;
+      } else {
+        previousInput.textContent = `${currentOperand} ` + keyValue;
+      }
     } else {
       if (previousKeyType === 'operator') {
         //operator cycling
@@ -234,10 +237,16 @@ function handleClickEvent(event, pressedKey) {
       } else {
         currentOperand.textContent = '-' + currentOperand;
       }
+    } else {
+      clearIfTextOnDisplay(type);
     }
   }
 
   if (type === 'decimal') {
+    if (isNaN(currentOperand)) {
+      clearIfTextOnDisplay(type);
+    }
+
     if (currentOperand.includes('.')) {
       console.warn(
         'Duplicate decimal points are not allowed in the display field.'
@@ -279,19 +288,15 @@ function allClear(operatorKeys) {
   delete calculator.dataset.operatorSign;
   delete calculator.dataset.firstNumber;
   delete calculator.dataset.initialSecondNumber;
+function clearIfTextOnDisplay(type, currentOperand) {
+  type === 'number'
+    ? (currentInput.textContent = '0')
+    : (currentInput.textContent = '0');
+  currentInput.style.removeProperty('font-size');
+  currentOperand = '';
 }
 
-function clearIfStringOnDisplay(currentOperand, type, keyValue) {
-  if (
-    // prevents concatenation when display has string values
-    currentOperand === 'Error' ||
-    currentOperand === 'No memory found' ||
-    currentOperand === 'Infinity' ||
-    currentOperand === 'NaN'
-  ) {
-    type === 'number'
-      ? (currentOperand.textContent = '')
-      : (currentOperand.textContent = '0');
-    currentOperand.style.removeProperty('font-size');
+}
+
   }
 }
