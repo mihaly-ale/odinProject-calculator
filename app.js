@@ -283,6 +283,9 @@ function allClear(operatorKeys) {
   delete calculator.dataset.operatorSign;
   delete calculator.dataset.firstNumber;
   delete calculator.dataset.initialSecondNumber;
+  delete calculator.dataset.previousKeyType;
+}
+
 function clearIfTextOnDisplay(type, currentOperand) {
   type === 'number'
     ? (currentInput.textContent = '0')
