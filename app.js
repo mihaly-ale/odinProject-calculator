@@ -8,51 +8,8 @@ window.addEventListener('keydown', handleKeyEvent);
 
 function handleKeyEvent(event) {
   let pressedKey = {}; // object to store type (clicked key) and value (for operator)
-  if (event.key >= 0 && event.key <= 9) pressedKey.type = 'number';
-  if (event.key === 'Enter') pressedKey.type = 'equal';
-  if (event.key === '+') {
-    pressedKey.type = 'operator';
-    pressedKey.value = 'add';
-  }
-  if (event.key === '-') {
-    pressedKey.type = 'operator';
-    pressedKey.value = 'subtract';
-  }
-  if (event.key === '*') {
-    pressedKey.type = 'operator';
-    pressedKey.value = 'multiply';
-    pressedKey.keyValue = '×';
-  }
-  if (event.key === '/') {
-    event.preventDefault();
-    pressedKey.type = 'operator';
-    pressedKey.value = 'divide';
-    pressedKey.keyValue = '÷';
-  }
-  if (event.key === '%') {
-    pressedKey.type = 'operator';
-    pressedKey.value = 'percent';
-    pressedKey.keyValue = '%';
-  }
-  if (event.key === 'Backspace') {
-    pressedKey.type = 'clear';
-  }
-  if (event.key === 'Delete') {
-    pressedKey.type = 'allclear';
-  }
-  if (event.key === 'ArrowUp') {
-    pressedKey.type = 'memory-store';
-  }
-  if (event.key === 'ArrowDown') {
-    pressedKey.type = 'memory-recall';
-  }
-  if (event.key === 'd') {
-    pressedKey.type = 'memory-delete';
-  }
-  if (event.key === '.') {
-    pressedKey.type = 'decimal';
-  }
 
+  handleKeyMapping(event, pressedKey);
   handleClickEvent(event, pressedKey);
 }
 
@@ -328,5 +285,53 @@ function appendNumber(keyValue, currentOperand) {
 function toExponential(length, input, value) {
   if (value.length >= length) {
     input.textContent = Number(value).toExponential(4);
+  }
+}
+
+function handleKeyMapping(event, pressedKey) {
+  if (event.key >= 0 && event.key <= 9) pressedKey.type = 'number';
+  if (event.key === 'Enter') pressedKey.type = 'equal';
+  if (event.key === '+') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'add';
+    pressedKey.keyValue = '+';
+  }
+  if (event.key === '-') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'subtract';
+  }
+  if (event.key === '*') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'multiply';
+    pressedKey.keyValue = '×';
+  }
+  if (event.key === '/') {
+    event.preventDefault();
+    pressedKey.type = 'operator';
+    pressedKey.value = 'divide';
+    pressedKey.keyValue = '÷';
+  }
+  if (event.key === '%') {
+    pressedKey.type = 'operator';
+    pressedKey.value = 'percent';
+    pressedKey.keyValue = '%';
+  }
+  if (event.key === 'Backspace') {
+    pressedKey.type = 'clear';
+  }
+  if (event.key === 'Delete') {
+    pressedKey.type = 'allclear';
+  }
+  if (event.key === 'ArrowUp') {
+    pressedKey.type = 'memory-store';
+  }
+  if (event.key === 'ArrowDown') {
+    pressedKey.type = 'memory-recall';
+  }
+  if (event.key === 'd') {
+    pressedKey.type = 'memory-delete';
+  }
+  if (event.key === '.') {
+    pressedKey.type = 'decimal';
   }
 }
