@@ -96,14 +96,15 @@ function handleClickEvent(event, pressedKey) {
         previousInput.textContent = `${tempSum} ` + keyValue;
         currentInput.textContent = '';
         calculator.dataset.firstNumber = tempSum;
-        toggleActiveOperator(key, operatorKeys);
+        toggleActiveOperator(event, key, operatorKeys);
         calculator.dataset.operator =
           event instanceof MouseEvent ? key.dataset.value : pressedKey.value;
+        calculator.dataset.previousKeyType = type;
         return;
       }
     }
 
-    toggleActiveOperator(key, operatorKeys);
+    toggleActiveOperator(event, key, operatorKeys);
 
     calculator.dataset.firstNumber = currentInput.textContent;
     calculator.dataset.operator =
@@ -232,7 +233,7 @@ function calculate(firstNumber, operator, secondNumber) {
   if (operator === 'percent') return (firstNumber * secondNumber) / 100;
 }
 
-function toggleActiveOperator(key, operatorKeys) {
+function toggleActiveOperator(event, key, operatorKeys) {
   if (event instanceof KeyboardEvent) {
     const currentActiveOperator = [...operatorKeys].find((opKey) => {
       return opKey.dataset.value === key.value;
