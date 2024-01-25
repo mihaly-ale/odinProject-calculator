@@ -139,13 +139,14 @@ function handleClickEvent(event, pressedKey) {
         previousInput.textContent = `${tempSum} ` + keyValue;
         currentInput.textContent = '';
         calculator.dataset.firstNumber = tempSum;
+        toggleActiveOperator(key, operatorKeys);
         calculator.dataset.operator =
           event instanceof MouseEvent ? key.dataset.value : pressedKey.value;
         return;
       }
     }
 
-    toggleActiveOperator(key);
+    toggleActiveOperator(key, operatorKeys);
 
     calculator.dataset.firstNumber = currentInput.textContent;
     calculator.dataset.operator =
@@ -274,14 +275,28 @@ function calculate(firstNumber, operator, secondNumber) {
   if (operator === 'percent') return (firstNumber * secondNumber) / 100;
 }
 
-function toggleActiveOperator(key) {
-  const currentActiveOperator = calculator.querySelector(
-    '[data-active= "highlighted"]'
-  );
-  if (currentActiveOperator) {
-    currentActiveOperator.dataset.active = '';
+function toggleActiveOperator(key, operatorKeys) {
+  if (event instanceof KeyboardEvent) {
+    const currentActiveOperator = [...operatorKeys].find((opKey) => {
+      return opKey.dataset.value === key.value;
+    });
+
+    operatorKeys.forEach((key) => (key.dataset.active = ''));
+
+    currentActiveOperator.dataset.active = 'highlighted';
   }
-  key.dataset.active = 'highlighted';
+
+  if (event instanceof MouseEvent) {
+    const currentActiveOperator = calculator.querySelector(
+      `[data-active= "highlighted"]`
+    );
+
+    if (currentActiveOperator) {
+      currentActiveOperator.dataset.active = '';
+    }
+
+    key.dataset.active = 'highlighted';
+  }
 }
 
 function allClear(operatorKeys) {
