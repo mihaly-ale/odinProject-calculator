@@ -168,8 +168,9 @@ function handleClickEvent(event, pressedKey) {
 
   if (type === 'clear') {
     if (previousKeyType === 'equal') {
-      //result stays as next operation first number, previous operation is cleared
-      previousOperand.textContent = '';
+      //result as first operand
+      previousInput.textContent = '';
+      operatorKeys.forEach((key) => (key.dataset.active = ''));
       return;
     }
 
