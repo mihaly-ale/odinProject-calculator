@@ -89,7 +89,10 @@ function handleClickEvent(event, pressedKey) {
       if (
         previousKeyType === 'number' ||
         previousKeyType === 'clear' ||
-        previousKeyType === 'decimal'
+        previousKeyType === 'decimal' ||
+        previousKeyType === 'plusminus' ||
+        previousKeyType === 'memory-store' ||
+        previousKeyType === 'memory-delete'
       ) {
         appendNumber(keyValue, currentOperand);
       }
