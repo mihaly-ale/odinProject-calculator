@@ -138,39 +138,31 @@ function handleClickEvent(event, pressedKey) {
   if (type === 'equal') {
     let firstNumber = calculator.dataset.firstNumber;
     const operator = calculator.dataset.operator;
-    const secondNumber = currentOperand;
+    const secondNumber = currentOperand || '0';
     let initialSecondNumber;
     let operatorSign; // only for display
-
-    if (previousKeyType !== 'equal') {
-      // single operation
-
-      calculator.dataset.initialSecondNumber = currentOperand; // save initial second operand(secondNumber) for repeated operation
-      calculator.dataset.operatorSign = previousOperand.innerText.slice(-1); // store operator sign for repeated operation's previousOperand value
-
-      currentOperand.textContent = calculate(
-        firstNumber,
-        operator,
-        secondNumber
-      );
-      previousOperand.textContent += currentOperand;
-    } else {
-      // multiple equal press keeps adding the initial secondary number to the result (e.g: 1+2=3, (3+2)=5, (5+2)=7, etc)
-
+    if (previousKeyType === 'equal' || previousOperand.includes('=')) {
+      // continous operation (e.g: 1+2=3, 3+2=5, 5+2=7, etc)
       firstNumber = currentOperand;
       calculator.dataset.firstNumber = firstNumber;
-
       operatorSign = calculator.dataset.operatorSign;
       initialSecondNumber = calculator.dataset.initialSecondNumber;
-
-      previousOperand.textContent =
-        currentOperand.textContent + operatorSign + initialSecondNumber;
-
-      currentOperand.textContent = calculate(
-        firstNumber,
+      previousInput.textContent =
+        currentInput.textContent +
+        ` ${operatorSign}` +
+        ` ${initialSecondNumber} =`;
+      currentInput.textContent = calculate(
+        secondNumber,
         operator,
         initialSecondNumber
       );
+    } else {
+      // single operation
+      calculator.dataset.initialSecondNumber = currentOperand; // save initial second operand(secondNumber) for repeated operation
+      calculator.dataset.operatorSign = previousInput.innerText.slice(-1); // extract operator sign for display purpose
+      currentInput.textContent = calculate(firstNumber, operator, secondNumber);
+      previousInput.textContent +=
+        secondNumber !== '0' ? ` ${currentOperand} =` : ` ${secondNumber} =`;
     }
   }
 
