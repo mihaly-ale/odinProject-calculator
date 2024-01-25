@@ -21,15 +21,18 @@ function handleKeyEvent(event) {
   if (event.key === '*') {
     pressedKey.type = 'operator';
     pressedKey.value = 'multiply';
+    pressedKey.keyValue = '×';
   }
   if (event.key === '/') {
     event.preventDefault();
     pressedKey.type = 'operator';
     pressedKey.value = 'divide';
+    pressedKey.keyValue = '÷';
   }
   if (event.key === '%') {
     pressedKey.type = 'operator';
     pressedKey.value = 'percent';
+    pressedKey.keyValue = '%';
   }
   if (event.key === 'Backspace') {
     pressedKey.type = 'clear';
@@ -55,9 +58,12 @@ function handleKeyEvent(event) {
 
 function handleClickEvent(event, pressedKey) {
   const key = event instanceof MouseEvent ? event.target : pressedKey;
-  const keyValue = event instanceof MouseEvent ? key.textContent : event.key;
-  const previousOperand = previousInput.textContent.trim();
-  const currentOperand = currentInput.textContent.trim();
+  const keyValue =
+    event instanceof MouseEvent
+      ? key.textContent
+      : pressedKey.keyValue || event.key;
+  let previousOperand = previousInput.textContent.trim();
+  let currentOperand = currentInput.textContent.trim();
   const { type } = event instanceof MouseEvent ? key.dataset : pressedKey;
   const { previousKeyType } = calculator.dataset;
   const operatorKeys = keys.querySelectorAll('[data-type="operator"]');
