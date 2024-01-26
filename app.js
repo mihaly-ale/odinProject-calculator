@@ -229,7 +229,9 @@ function handleClickEvent(event, pressedKey) {
 }
 
 function calculate(firstNumber, operator, secondNumber) {
-  firstNumber = parseFloat(firstNumber);
+  firstNumber = firstNumber.startsWith('+')
+    ? parseFloat(firstNumber.slice1)
+    : parseFloat(firstNumber);
   secondNumber = parseFloat(secondNumber);
   if (operator === 'add') return firstNumber + secondNumber;
   if (operator === 'subtract') return firstNumber - secondNumber;
