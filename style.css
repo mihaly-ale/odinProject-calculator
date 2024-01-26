@@ -57,7 +57,7 @@ body {
     font-size: calc(1rem * 1.5);
     height: 3.25rem;
     margin-left: 15px;
-    max-width: 14ch;
+    /* max-width: 14ch; */
     word-wrap: break-word;
     word-break: break-all;
   }

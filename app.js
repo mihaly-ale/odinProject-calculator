@@ -52,7 +52,7 @@ function handleClickEvent(event, pressedKey) {
       clearMemory(state);
       break;
     case 'memory-recall':
-      recallMemory();
+      recallMemory(state);
       break;
     case 'decimal':
       handleDecimalPoint(state, keyValue);
@@ -98,10 +98,10 @@ function toggleActiveOperator(event, key, operatorKeys) {
   }
 }
 
-function clearIfTextOnDisplay(currentOperand) {
+function clearIfTextOnDisplay() {
   currentInput.textContent = '0';
   currentInput.style.removeProperty('font-size');
-  currentOperand = '';
+  state.currentOperand = '';
 }
 
 function appendNumber(keyValue, currentOperand) {
@@ -171,13 +171,13 @@ function handleKeyMapping(event, pressedKey) {
   }
 }
 
-function handleNumber(state, keyValue, type) {
-  const { previousOperand, currentOperand, previousKeyType, operatorKeys } =
+function handleNumber(state, keyValue) {
+  let { previousOperand, currentOperand, previousKeyType, operatorKeys } =
     state;
 
   if (!previousOperand) {
     if (isNaN(currentOperand)) {
-      clearIfTextOnDisplay(type, (currentOperand = '0'));
+      clearIfTextOnDisplay(state);
     }
     if (currentOperand === '0') {
       currentInput.textContent = keyValue;
@@ -214,17 +214,12 @@ function handleNumber(state, keyValue, type) {
 }
 
 function handleOperator(state, keyValue, type, event) {
-  const {
-    previousOperand,
-    currentOperand,
-    previousKeyType,
-    operatorKeys,
-    key,
-  } = state;
+  let { previousOperand, currentOperand, previousKeyType, operatorKeys, key } =
+    state;
 
   if (!previousOperand) {
     if (isNaN(currentOperand)) {
-      clearIfTextOnDisplay(type);
+      clearIfTextOnDisplay(state);
       return;
     } else {
       previousInput.textContent = `${currentOperand} ` + keyValue;
@@ -362,8 +357,12 @@ function clearMemory(state) {
     memoryContainer.classList.remove('active');
   } else console.warn('No memory to delete.');
 }
-function recallMemory() {
+function recallMemory(state) {
+  const { previousOperand } = state;
   if (calculator.dataset.memory) {
+    if (previousOperand.includes('=')) {
+      previousInput.textContent = '';
+    }
     currentInput.textContent = calculator.dataset.memory;
   } else {
     currentInput.style.fontSize = '.85rem';
@@ -371,7 +370,7 @@ function recallMemory() {
   }
 }
 
-function invertSign(state, type) {
+function invertSign(state) {
   const { currentOperand } = state;
 
   if (Number(currentOperand)) {
@@ -381,14 +380,14 @@ function invertSign(state, type) {
       currentInput.textContent = '-' + currentOperand;
     }
   } else {
-    clearIfTextOnDisplay(type);
+    clearIfTextOnDisplay(state);
   }
 }
 
 function handleDecimalPoint(state, keyValue) {
   const { currentOperand } = state;
   if (isNaN(currentOperand)) {
-    clearIfTextOnDisplay(type);
+    clearIfTextOnDisplay(state);
   }
 
   if (currentOperand.includes('.')) {
