@@ -228,7 +228,7 @@ function handleOperator(state, keyValue, type, event) {
     if (previousKeyType === 'operator' || previousKeyType === 'undefined') {
       //operator cycling
       //undefined when operator entered in the main keyboard
-      let operatorsRegex = /[+\-×÷%]/;
+      let operatorsRegex = /[-+*/%](?!\d)/; // negative lookahead (?!...)
       previousInput.textContent = previousInput.textContent.replace(
         operatorsRegex,
         keyValue
