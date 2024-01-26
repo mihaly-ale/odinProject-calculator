@@ -160,9 +160,9 @@ function handleClickEvent(event, pressedKey) {
       currentOperand &&
       Number(currentOperand)
     ) {
-      currentInput.innerText = currentOperand.slice(0, -1);
+      currentInput.textContent = currentOperand.slice(0, -1);
     } else {
-      allClear(operatorKeys);
+      currentInput.textContent = '';
     }
   }
 
@@ -276,10 +276,8 @@ function allClear(operatorKeys) {
   delete calculator.dataset.previousKeyType;
 }
 
-function clearIfTextOnDisplay(type, currentOperand) {
-  type === 'number'
-    ? (currentInput.textContent = '0')
-    : (currentInput.textContent = '0');
+function clearIfTextOnDisplay(currentOperand) {
+  currentInput.textContent = '0';
   currentInput.style.removeProperty('font-size');
   currentOperand = '';
 }
