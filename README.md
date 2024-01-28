@@ -17,3 +17,5 @@ Considering this as my first major project, I learned a lot throughout the proce
 ## Future Features: 
 * A history tab
 * Indication when memory is overwritten
+
+    [Live Demo](https://mihaly-ale.github.io/odinProject-calculator/)
